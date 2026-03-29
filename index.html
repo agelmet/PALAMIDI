@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="el" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Χριστίνη Παλαμήδη | Ψυχοθεραπεύτρια & Σύμβουλος Ψυχικής Υγείας</title>
+    <meta name="description" content="CBT & EMDR: Θεραπεύοντας το Τραύμα, Απελευθερώνοντας τον Αληθινό Εαυτό. Ιδιωτικό γραφείο στην Αθήνα.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        calm: {
+                            sage: '#7d8f82',
+                            forest: '#4a5d4e',
+                            sand: '#e8e5df',
+                            taupe: '#a39182',
+                            charcoal: '#2c332e',
+                            cream: '#f9f8f6'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Cormorant Garamond', 'serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-delayed': 'float 6s ease-in-out 3s infinite',
+                        'spin-slow': 'spin 15s linear infinite',
+                        'marquee': 'marquee 50s linear infinite',
+                        'reveal-up': 'revealUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-50%)' },
+                        },
+                        revealUp: {
+                            '0%': { opacity: '0', transform: 'translateY(40px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Modern Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f9f8f6; }
+        ::-webkit-scrollbar-thumb { background: #a39182; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #7d8f82; }
+
+        /* Typography Elegance */
+        body { background-color: #f9f8f6; color: #2c332e; }
+        .text-balance { text-wrap: balance; }
+        
+        /* Reveal Mechanics */
+        .reveal { opacity: 0; }
+        
+        /* Glassmorphism Components */
+        .glass-nav {
+            background: rgba(249, 248, 246, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(125, 143, 130, 0.1);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 10px 40px -10px rgba(44, 51, 46, 0.05);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(125, 143, 130, 0.15);
+            border-color: rgba(125, 143, 130, 0.3);
+        }
+
+        /* Image Parallax & Masks */
+        .img-mask {
+            mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+        }
+
+        /* Lightbox */
+        #lightbox {
+            opacity: 0; pointer-events: none; transition: opacity 0.5s ease;
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+        }
+        #lightbox.active { opacity: 1; pointer-events: auto; }
+        #lightbox img { transform: scale(0.95); transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        #lightbox.active img { transform: scale(1); }
+
+        /* Marquee Container */
+        .marquee-container { display: flex; width: 200%; }
+        .marquee-container:hover { animation-play-state: paused; }
+
+        /* Circular Logo SVG Text Path */
+        .circular-text-logo { width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #4a5d4e; color: white; transition: transform 0.5s ease, box-shadow 0.5s ease; }
+        .circular-text-logo:hover { transform: scale(1.05) rotate(15deg); box-shadow: 0 10px 25px -5px rgba(74, 93, 78, 0.4); }
+    </style>
+</head>
+<body class="font-sans antialiased overflow-x-hidden selection:bg-calm-taupe selection:text-white">
+
+    <nav class="fixed w-full z-50 transition-all duration-500 glass-nav" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            
+            <a href="#" class="flex items-center gap-4 group">
+                <div class="circular-text-logo shadow-lg relative">
+                    <svg viewBox="0 0 100 100" class="absolute w-full h-full animate-spin-slow opacity-80">
+                        <path id="circlePath" d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" fill="none" />
+                        <text font-size="12" font-family="Inter" font-weight="600" letter-spacing="1.5" fill="currentColor">
+                            <textPath href="#circlePath">ΧΡΙΣΤΙΝΗ ΠΑΛΑΜΗΔΗ •</textPath>
+                        </text>
+                    </svg>
+                    <span class="font-serif text-xl italic font-semibold">Χ.Π.</span>
+                </div>
+                <div class="hidden md:block">
+                    <h1 class="text-sm font-bold tracking-widest uppercase text-calm-charcoal">Χριστινη Παλαμηδη</h1>
+                    <p class="text-xs text-calm-sage font-medium">Ψυχολόγος - Ψυχοθεραπεύτρια</p>
+                </div>
+            </a>
+
+            <div class="hidden lg:flex items-center space-x-10">
+                <a href="#about" class="text-sm font-medium text-calm-charcoal hover:text-calm-taupe transition-colors tracking-wide">ΠΡΟΦΙΛ</a>
+                <a href="#services" class="text-sm font-medium text-calm-charcoal hover:text-calm-taupe transition-colors tracking-wide">ΥΠΗΡΕΣΙΕΣ</a>
+                <a href="#identity" class="text-sm font-medium text-calm-charcoal hover:text-calm-taupe transition-colors tracking-wide">ΠΡΟΣΕΓΓΙΣΗ</a>
+                <a href="#space" class="text-sm font-medium text-calm-charcoal hover:text-calm-taupe transition-colors tracking-wide">Ο ΧΩΡΟΣ</a>
+                <a href="#contact" class="px-8 py-3 bg-calm-forest text-white rounded-full text-sm font-bold tracking-wider hover:bg-calm-charcoal transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">ΚΛΕΙΣΤΕ ΡΑΝΤΕΒΟΥ</a>
+            </div>
+
+            <button class="lg:hidden text-calm-charcoal" id="mobile-menu-btn">
+                <i data-lucide="menu" class="w-8 h-8"></i>
+            </button>
+        </div>
+
+        <div id="mobile-menu" class="absolute top-full left-0 w-full bg-calm-cream/95 backdrop-blur-xl shadow-2xl hidden flex-col items-center py-10 space-y-8 border-t border-calm-sand">
+            <a href="#about" class="text-lg font-medium text-calm-charcoal mobile-link">ΠΡΟΦΙΛ</a>
+            <a href="#services" class="text-lg font-medium text-calm-charcoal mobile-link">ΥΠΗΡΕΣΙΕΣ</a>
+            <a href="#identity" class="text-lg font-medium text-calm-charcoal mobile-link">ΠΡΟΣΕΓΓΙΣΗ</a>
+            <a href="#space" class="text-lg font-medium text-calm-charcoal mobile-link">Ο ΧΩΡΟΣ</a>
+            <a href="#contact" class="px-10 py-4 bg-calm-forest text-white rounded-full text-lg font-bold mobile-link">ΚΛΕΙΣΤΕ ΡΑΝΤΕΒΟΥ</a>
+        </div>
+    </nav>
+
+    <section class="relative min-h-[100svh] flex items-center pt-24 pb-12 px-6 overflow-hidden bg-calm-charcoal">
+        <div class="absolute inset-0 z-0">
+            <img src="https://raw.githubusercontent.com/agelmet/PALAMIDI/refs/heads/main/2023-10-26-2.jpg" alt="Χώρος Ψυχοθεραπείας" class="w-full h-full object-cover opacity-30 transform scale-105" style="filter: grayscale(20%);">
+            <div class="absolute inset-0 bg-gradient-to-r from-calm-charcoal via-calm-charcoal/80 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-calm-charcoal via-transparent to-transparent"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto w-full grid lg:grid-cols-12 gap-12 items-center relative z-10">
+            
+            <div class="lg:col-span-7 pt-12 lg:pt-0">
+                <div class="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-calm-taupe/30 bg-white/5 backdrop-blur-md text-calm-sand text-xs font-bold tracking-widest uppercase mb-8 opacity-0 animate-[revealUp_1s_ease-out_0.2s_forwards]">
+                    <span class="w-1.5 h-1.5 rounded-full bg-calm-taupe"></span>
+                    Ψυχοθεραπεια & Συμβουλευτικη
+                </div>
+                
+                <h2 class="text-5xl lg:text-7xl font-serif text-white leading-[1.1] mb-6 text-balance opacity-0 animate-[revealUp_1s_ease-out_0.4s_forwards]">
+                    <span class="block">CBT & EMDR:</span>
+                    <span class="text-calm-taupe italic">Θεραπεύοντας</span> το Τραύμα,<br>
+                    <span class="text-calm-sage">Απελευθερώνοντας</span> τον Αληθινό Εαυτό.
+                </h2>
+                
+                <p class="text-lg text-calm-sand/80 mb-10 max-w-xl font-light leading-relaxed opacity-0 animate-[revealUp_1s_ease-out_0.6s_forwards]">
+                    Εξειδικευμένη προσέγγιση για κρίσεις πανικού, θλίψη και τραυματικές εμπειρίες. Ένας ασφαλής, ζεστός χώρος στο κέντρο της Αθήνας.
+                </p>
+                
+                <div class="flex flex-wrap items-center gap-6 opacity-0 animate-[revealUp_1s_ease-out_0.8s_forwards]">
+                    <a href="#contact" class="px-8 py-4 bg-calm-taupe text-white rounded-full text-sm font-bold tracking-wider hover:bg-calm-sand hover:text-calm-charcoal transition-all duration-300 flex items-center gap-3 group">
+                        ΚΛΕΙΣΤΕ ΡΑΝΤΕΒΟΥ
+                        <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="lg:col-span-5 relative hidden md:block opacity-0 animate-[revealUp_1.5s_ease-out_0.5s_forwards]">
+                <div class="relative w-full max-w-md mx-auto aspect-[3/4] rounded-t-full rounded-b-3xl overflow-hidden shadow-2xl shadow-black/50 border border-white/10 animate-float">
+                    <img src="https://github.com/agelmet/PALAMIDI/blob/main/2023-10-24-2.jpg?raw=true" alt="Χριστίνη Παλαμήδη" class="w-full h-full object-cover">
+                    <div class="absolute bottom-0 w-full h-1/3 bg-gradient-to-t from-black/60 to-transparent"></div>
+                </div>
+                <div class="absolute top-10 -right-10 w-40 h-40 bg-calm-sage/20 rounded-full blur-[50px] animate-float-delayed"></div>
+                <div class="absolute bottom-10 -left-10 w-40 h-40 bg-calm-taupe/20 rounded-full blur-[50px] animate-float"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-32 px-6 bg-calm-cream relative">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
+            
+            <div class="relative reveal order-2 lg:order-1">
+                <div class="relative rounded-[2rem] overflow-hidden shadow-2xl group border-[8px] border-white animate-float-delayed">
+                    <img src="https://github.com/agelmet/PALAMIDI/blob/main/2023-10-24-5.jpg?raw=true" alt="Χριστίνη Παλαμήδη - Προφίλ" class="w-full aspect-[4/5] object-cover transition-transform duration-1000 group-hover:scale-105">
+                </div>
+                <div class="absolute -bottom-8 -left-8 w-48 h-48 bg-calm-sand rounded-full -z-10"></div>
+                <div class="absolute -top-8 -right-8 w-32 h-32 border border-calm-sage rounded-full -z-10"></div>
+            </div>
+
+            <div class="reveal order-1 lg:order-2">
+                <span class="text-calm-sage font-bold tracking-widest text-xs uppercase mb-4 block">ΤΟ ΠΡΟΦΙΛ</span>
+                <h2 class="text-4xl md:text-5xl font-serif text-calm-charcoal mb-8 leading-tight">
+                    Η δύναμη για αλλαγή υπάρχει <span class="italic text-calm-taupe">μέσα σας</span>.
+                </h2>
+                
+                <div class="space-y-6 text-lg text-calm-charcoal/70 font-light leading-relaxed">
+                    <p>
+                        Η <strong>Χριστίνη Παλαμήδη</strong> είναι Ψυχοθεραπεύτρια και Σύμβουλος Ψυχικής Υγείας, διατηρώντας το ιδιωτικό της γραφείο στο κέντρο της Αθήνας. Το ακαδημαϊκό της υπόβαθρο διακρίνεται από διεθνή πρότυπα εκπαίδευσης.
+                    </p>
+                    <p>
+                        Ξεκίνησε τις σπουδές της στο <span class="text-calm-forest font-medium">Deree – The American College of Greece</span>, ολοκλήρωσε τριετές Μεταπτυχιακό (MSc) στη Συμβουλευτική Ψυχολογία στο <span class="text-calm-forest font-medium">Hellenic American University</span> και συνεχίζει την ακαδημαϊκή της εξέλιξη στην Ψυχολογία μέσω του <span class="text-calm-forest font-medium">London Metropolitan University</span>.
+                    </p>
+                    <p>
+                        Η κλινική της προσέγγιση είναι διττή: Εξειδικεύεται στη <strong>Γνωσιακή Συμπεριφορική Θεραπεία (CBT)</strong> για τη διαχείριση του «εδώ και τώρα», αλλά και στη διεθνώς αναγνωρισμένη μέθοδο <strong>EMDR</strong> για την εν τω βάθει επεξεργασία του ψυχικού τραύματος.
+                    </p>
+                    <blockquote class="pl-6 border-l-2 border-calm-taupe text-xl font-serif italic text-calm-forest py-2 my-8">
+                        "Η αποστολή μου είναι βαθιά ανθρώπινη: να προσφέρω ένα ζεστό, ασφαλές και απολύτως αποδεκτικό περιβάλλον, όπου θα ακουστείτε πραγματικά."
+                    </blockquote>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="identity" class="py-32 px-6 bg-calm-forest text-calm-cream relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <svg class="absolute w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <pattern id="gridPattern" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <circle cx="2" cy="2" r="1" fill="#ffffff" />
+                    </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#gridPattern)" />
+            </svg>
+        </div>
+
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="text-center mb-20 reveal">
+                <span class="text-calm-taupe font-bold tracking-widest text-xs uppercase mb-4 block">ΘΕΡΑΠΕΥΤΙΚΗ ΤΑΥΤΟΤΗΤΑ</span>
+                <h2 class="text-4xl md:text-5xl font-serif mb-6 text-white">Οι Πυλώνες της Προσέγγισης</h2>
+                <div class="w-16 h-px bg-calm-taupe mx-auto"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <div class="p-8 border border-white/10 rounded-2xl bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-colors duration-500 reveal group">
+                    <div class="w-12 h-12 bg-calm-taupe/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="brain-circuit" class="w-6 h-6 text-calm-taupe"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-white">Εξειδίκευση στο Τραύμα (EMDR)</h3>
+                    <p class="text-sm text-calm-sand/70 leading-relaxed font-light">
+                        Μια από τις πιο ισχυρές μεθόδους (συστήνεται από τον Π.Ο.Υ.). Σας βοηθά να ξεπεράσετε βαθιά, ριζωμένα τραύματα που η απλή συζήτηση ίσως δεν μπορεί να αγγίξει.
+                    </p>
+                </div>
+
+                <div class="p-8 border border-white/10 rounded-2xl bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-colors duration-500 reveal group" style="transition-delay: 100ms;">
+                    <div class="w-12 h-12 bg-calm-sage/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="compass" class="w-6 h-6 text-calm-sage"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-white">Πρακτική & Μετρήσιμη (CBT)</h3>
+                    <p class="text-sm text-calm-sand/70 leading-relaxed font-light">
+                        Δεν κάνουμε απλώς αναλύσεις. Μαθαίνετε τεχνικές και παίρνετε εργαλεία για να αλλάξετε τον τρόπο που σκέφτεστε και αντιδράτε στο "εδώ και τώρα".
+                    </p>
+                </div>
+
+                <div class="p-8 border border-white/10 rounded-2xl bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-colors duration-500 reveal group" style="transition-delay: 200ms;">
+                    <div class="w-12 h-12 bg-calm-sand/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="graduation-cap" class="w-6 h-6 text-calm-sand"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-white">Διεθνή Πρότυπα</h3>
+                    <p class="text-sm text-calm-sand/70 leading-relaxed font-light">
+                        Διαρκής ακαδημαϊκή πορεία σε αναγνωρισμένα ιδρύματα (Deree, Hellenic American University, London Met), συγχρονισμένη με τις παγκόσμιες εξελίξεις.
+                    </p>
+                </div>
+
+                <div class="p-8 border border-white/10 rounded-2xl bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-colors duration-500 reveal group" style="transition-delay: 300ms;">
+                    <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="shield-check" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-white">Αυθεντικότητα & Ασφάλεια</h3>
+                    <p class="text-sm text-calm-sand/70 leading-relaxed font-light">
+                        Πάνω από τις τεχνικές, πιστεύω στη σχέση. Ένας χώρος όπου δεν χρειάζεται να προσποιηθείτε. Θα ακουστείτε με απόλυτο σεβασμό και ευαισθησία.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="py-32 px-6 bg-white relative">
+        <div class="max-w-7xl mx-auto">
+            
+            <div class="flex flex-col md:flex-row justify-between items-end mb-20 reveal">
+                <div class="max-w-2xl">
+                    <span class="text-calm-sage font-bold tracking-widest text-xs uppercase mb-4 block">ΥΠΗΡΕΣΙΕΣ</span>
+                    <h2 class="text-4xl md:text-5xl font-serif text-calm-charcoal leading-tight">Εξειδικευμένη Υποστήριξη</h2>
+                </div>
+                <p class="text-calm-charcoal/60 max-w-sm text-sm font-light mt-6 md:mt-0 pb-2">
+                    Προσαρμόζουμε τα επιστημονικά εργαλεία στις δικές σας, μοναδικές ανάγκες.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <div class="glass-card p-10 rounded-[2rem] reveal group">
+                    <div class="w-14 h-14 bg-calm-cream rounded-2xl flex items-center justify-center mb-8 border border-calm-sand">
+                        <i data-lucide="activity" class="w-6 h-6 text-calm-forest"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-calm-charcoal mb-4">Τραύμα & PTSD (EMDR)</h3>
+                    <p class="text-calm-charcoal/70 text-sm font-light leading-relaxed mb-6">
+                        Βοηθάμε τον εγκέφαλο να "ξεμπλοκάρει" και να επεξεργαστεί επώδυνες αναμνήσεις και βαθιές φοβίες χωρίς να απαιτείται εκτενής συζήτηση του γεγονότος.
+                    </p>
+                    <div class="space-y-2 mt-auto">
+                        <span class="inline-block px-3 py-1 bg-calm-sand/50 text-calm-charcoal text-xs font-semibold rounded-md">Συνεδρία EMDR - 90'</span>
+                        <span class="inline-block px-3 py-1 bg-calm-sand/50 text-calm-charcoal text-xs font-semibold rounded-md">Φοβίες</span>
+                    </div>
+                </div>
+
+                <div class="glass-card p-10 rounded-[2rem] reveal group" style="transition-delay: 100ms;">
+                    <div class="w-14 h-14 bg-calm-cream rounded-2xl flex items-center justify-center mb-8 border border-calm-sand">
+                        <i data-lucide="wind" class="w-6 h-6 text-calm-sage"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-calm-charcoal mb-4">Άγχος & Πανικός (CBT)</h3>
+                    <p class="text-calm-charcoal/70 text-sm font-light leading-relaxed mb-6">
+                        Δουλεύουμε συνεργατικά για να αναγνωρίσουμε τις αρνητικές σκέψεις. Μέσα από τεχνικές χαλάρωσης και σταδιακή έκθεση, αποκτάτε τον έλεγχο.
+                    </p>
+                    <div class="space-y-2 mt-auto">
+                        <span class="inline-block px-3 py-1 bg-calm-sand/50 text-calm-charcoal text-xs font-semibold rounded-md">Συνεδρία CBT - 50'</span>
+                        <span class="inline-block px-3 py-1 bg-calm-sand/50 text-calm-charcoal text-xs font-semibold rounded-md">Γενικευμένο Άγχος</span>
+                    </div>
+                </div>
+
+                <div class="glass-card p-10 rounded-[2rem] reveal group" style="transition-delay: 200ms;">
+                    <div class="w-14 h-14 bg-calm-cream rounded-2xl flex items-center justify-center mb-8 border border-calm-sand">
+                        <i data-lucide="heart-crack" class="w-6 h-6 text-calm-taupe"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-calm-charcoal mb-4">Θλίψη & Ψυχοσωματικά</h3>
+                    <p class="text-calm-charcoal/70 text-sm font-light leading-relaxed mb-6">
+                        Ασφαλής χώρος για να νοηματοδοτήσετε την απώλεια, να ρυθμίσετε έντονα συναισθήματα θυμού και να ανακουφίσετε ψυχοσωματικά συμπτώματα.
+                    </p>
+                    <div class="space-y-2 mt-auto">
+                        <span class="inline-block px-3 py-1 bg-calm-sand/50 text-calm-charcoal text-xs font-semibold rounded-md">Συνεδρία - 50'</span>
+                        <span class="inline-block px-3 py-1 bg-calm-sand/50 text-calm-charcoal text-xs font-semibold rounded-md">Διαχείριση Θυμού</span>
+                    </div>
+                </div>
+
+                <div class="glass-card p-10 rounded-[2rem] reveal group">
+                    <div class="w-14 h-14 bg-calm-cream rounded-2xl flex items-center justify-center mb-8 border border-calm-sand">
+                        <i data-lucide="users" class="w-6 h-6 text-calm-forest"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-calm-charcoal mb-4">Σχέσεις & Ταυτότητα (ΛΟΑΤΚΙ+)</h3>
+                    <p class="text-calm-charcoal/70 text-sm font-light leading-relaxed mb-6">
+                        Επιβεβαιωτικός, ασφαλής χώρος (safe space). Εργαζόμαστε πάνω στη βελτίωση της αυτοεκτίμησης, επαγγελματικό προσανατολισμό και διαπροσωπικές σχέσεις.
+                    </p>
+                    <div class="space-y-2 mt-auto flex flex-wrap gap-2">
+                        <span class="inline-block px-3 py-1 bg-calm-sand/50 text-calm-charcoal text-xs font-semibold rounded-md">Σχέσεις - 50'</span>
+                        <span class="inline-block px-3 py-1 bg-calm-sand/50 text-calm-charcoal text-xs font-semibold rounded-md">Επαγγ. Προσανατολισμός - 70'</span>
+                    </div>
+                </div>
+
+                <div class="glass-card p-10 rounded-[2rem] reveal group md:col-span-2 lg:col-span-2 bg-calm-cream/50" style="transition-delay: 100ms;">
+                    <div class="flex flex-col md:flex-row items-center gap-8 h-full">
+                        <div class="w-16 h-16 shrink-0 bg-white rounded-2xl flex items-center justify-center border border-calm-sand shadow-sm">
+                            <i data-lucide="laptop" class="w-8 h-8 text-calm-charcoal"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-calm-charcoal mb-3">Διαδικτυακή Ψυχοθεραπεία (Online)</h3>
+                            <p class="text-calm-charcoal/70 text-sm font-light leading-relaxed mb-4 max-w-xl">
+                                Αναγνωρίζοντας τις ανάγκες της σύγχρονης εποχής, όλες οι υπηρεσίες προσφέρονται και διαδικτυακά. Διασφαλίζουμε απόλυτη εχεμύθεια και ευελιξία, επιτρέποντάς σας να συνδεθείτε από την άνεση του προσωπικού σας χώρου.
+                            </p>
+                            <span class="inline-block px-3 py-1 bg-white text-calm-charcoal text-xs font-bold tracking-wide rounded-md border border-calm-sand shadow-sm">Online Συνεδρία - 50'</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="space" class="py-32 px-6 bg-calm-cream">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20 reveal">
+                <span class="text-calm-taupe font-bold tracking-widest text-xs uppercase mb-4 block">ΤΟ ΠΕΡΙΒΑΛΛΟΝ</span>
+                <h2 class="text-4xl md:text-5xl font-serif text-calm-charcoal mb-6">Ο Χώρος Μας</h2>
+                <p class="text-calm-charcoal/60 text-lg font-light max-w-2xl mx-auto">
+                    Σχεδιασμένος με γνώμονα την ηρεμία και την ιδιωτικότητα. Μια όαση γαλήνης στο κέντρο της Αθήνας.
+                </p>
+            </div>
+
+            <div class="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
+                
+                <button class="w-full break-inside-avoid rounded-xl overflow-hidden group relative reveal shadow-md" onclick="openLightbox('https://github.com/agelmet/PALAMIDI/blob/main/2023-10-24-4.jpg?raw=true')">
+                    <img src="https://github.com/agelmet/PALAMIDI/blob/main/2023-10-24-4.jpg?raw=true" alt="Χώρος 1" class="w-full h-auto transform transition-transform duration-700 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-calm-charcoal/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
+                        <i data-lucide="maximize-2" class="w-8 h-8 text-white"></i>
+                    </div>
+                </button>
+
+                <button class="w-full break-inside-avoid rounded-xl overflow-hidden group relative reveal shadow-md" style="transition-delay: 100ms;" onclick="openLightbox('https://github.com/agelmet/PALAMIDI/blob/main/2023-10-24.jpg?raw=true')">
+                    <img src="https://github.com/agelmet/PALAMIDI/blob/main/2023-10-24.jpg?raw=true" alt="Χώρος 2" class="w-full h-auto transform transition-transform duration-700 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-calm-charcoal/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
+                        <i data-lucide="maximize-2" class="w-8 h-8 text-white"></i>
+                    </div>
+                </button>
+
+                <button class="w-full break-inside-avoid rounded-xl overflow-hidden group relative reveal shadow-md" style="transition-delay: 200ms;" onclick="openLightbox('https://github.com/agelmet/PALAMIDI/blob/main/2023-10-26-2.jpg?raw=true')">
+                    <img src="https://github.com/agelmet/PALAMIDI/blob/main/2023-10-26-2.jpg?raw=true" alt="Χώρος 3" class="w-full h-auto transform transition-transform duration-700 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-calm-charcoal/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
+                        <i data-lucide="maximize-2" class="w-8 h-8 text-white"></i>
+                    </div>
+                </button>
+
+                <button class="w-full break-inside-avoid rounded-xl overflow-hidden group relative reveal shadow-md" onclick="openLightbox('https://github.com/agelmet/PALAMIDI/blob/main/2023-10-26-3.jpg?raw=true')">
+                    <img src="https://github.com/agelmet/PALAMIDI/blob/main/2023-10-26-3.jpg?raw=true" alt="Χώρος 4" class="w-full h-auto transform transition-transform duration-700 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-calm-charcoal/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
+                        <i data-lucide="maximize-2" class="w-8 h-8 text-white"></i>
+                    </div>
+                </button>
+
+                <button class="w-full break-inside-avoid rounded-xl overflow-hidden group relative reveal shadow-md" style="transition-delay: 100ms;" onclick="openLightbox('https://github.com/agelmet/PALAMIDI/blob/main/2023-10-26-4.jpg?raw=true')">
+                    <img src="https://github.com/agelmet/PALAMIDI/blob/main/2023-10-26-4.jpg?raw=true" alt="Χώρος 5" class="w-full h-auto transform transition-transform duration-700 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-calm-charcoal/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
+                        <i data-lucide="maximize-2" class="w-8 h-8 text-white"></i>
+                    </div>
+                </button>
+
+                <button class="w-full break-inside-avoid rounded-xl overflow-hidden group relative reveal shadow-md" style="transition-delay: 200ms;" onclick="openLightbox('https://github.com/agelmet/PALAMIDI/blob/main/2023-10-26.jpg?raw=true')">
+                    <img src="https://github.com/agelmet/PALAMIDI/blob/main/2023-10-26.jpg?raw=true" alt="Χώρος 6" class="w-full h-auto transform transition-transform duration-700 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-calm-charcoal/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
+                        <i data-lucide="maximize-2" class="w-8 h-8 text-white"></i>
+                    </div>
+                </button>
+
+            </div>
+        </div>
+    </section>
+
+    <div id="lightbox" class="fixed inset-0 z-[100] bg-calm-charcoal/95 flex items-center justify-center cursor-zoom-out" onclick="closeLightbox()">
+        <button class="absolute top-8 right-8 text-white hover:text-calm-taupe transition-colors">
+            <i data-lucide="x" class="w-10 h-10"></i>
+        </button>
+        <img id="lightbox-img" src="" alt="Προβολή" class="max-w-[95vw] max-h-[95vh] object-contain rounded-sm shadow-2xl cursor-default" onclick="event.stopPropagation()">
+    </div>
+
+    <section class="py-32 bg-white overflow-hidden border-t border-calm-sand">
+        <div class="max-w-7xl mx-auto px-6 mb-16 text-center reveal">
+            <span class="text-calm-sage font-bold tracking-widest text-xs uppercase mb-4 block">ΕΜΠΕΙΡΙΕΣ</span>
+            <h2 class="text-4xl md:text-5xl font-serif text-calm-charcoal mb-6">Τι Λένε οι Θεραπευόμενοι</h2>
+            <img src="https://www.doctoranytime.gr/images/logo-rebranding.svg" alt="Doctoranytime" class="h-6 mx-auto opacity-70">
+        </div>
+
+        <div class="w-full relative pb-10">
+            <div class="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white to-transparent z-10"></div>
+            <div class="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-white to-transparent z-10"></div>
+            
+            <div class="marquee-container animate-marquee">
+                <div class="flex space-x-6 px-3">
+                    
+                    <div class="w-80 bg-calm-cream p-8 rounded-2xl shrink-0 border border-calm-sand">
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="flex items-center gap-1 text-calm-taupe">
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            </div>
+                            <span class="font-bold text-calm-charcoal text-sm">10.0 / 10</span>
+                        </div>
+                        <p class="text-calm-charcoal/80 text-sm font-light mb-6 italic min-h-[80px]">"Σε αντιμετωπίζει σε σεβασμό εστιάζοντας στο πρόβλημα."</p>
+                        <div class="pt-4 border-t border-calm-sand/60">
+                            <p class="text-xs font-bold text-calm-charcoal uppercase">Georgia</p>
+                            <p class="text-xs text-calm-charcoal/50">14 Νοεμβρίου 2025</p>
+                        </div>
+                    </div>
+
+                    <div class="w-80 bg-calm-cream p-8 rounded-2xl shrink-0 border border-calm-sand">
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="flex items-center gap-1 text-calm-taupe">
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            </div>
+                            <span class="font-bold text-calm-charcoal text-sm">10.0 / 10</span>
+                        </div>
+                        <p class="text-calm-charcoal/80 text-sm font-light mb-6 italic min-h-[80px]">"Από την πρώτη στιγμή ένιωσα άνετα. Η ζεστασιά της με βοήθησε να νιώσω ότι κάποιος με ακούει πραγματικά."</p>
+                        <div class="pt-4 border-t border-calm-sand/60">
+                            <p class="text-xs font-bold text-calm-charcoal uppercase">Marita</p>
+                            <p class="text-xs text-calm-charcoal/50">24 Φεβρουαρίου 2025</p>
+                        </div>
+                    </div>
+
+                    <div class="w-80 bg-calm-cream p-8 rounded-2xl shrink-0 border border-calm-sand">
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="flex items-center gap-1 text-calm-taupe">
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            </div>
+                            <span class="font-bold text-calm-charcoal text-sm">10.0 / 10</span>
+                        </div>
+                        <p class="text-calm-charcoal/80 text-sm font-light mb-6 italic min-h-[80px]">"Εξαιρετική επαγγελματίας μα πάνω απ' όλα άνθρωπος! Άψογη αντιμετώπιση στη διαχείριση του άγχους!"</p>
+                        <div class="pt-4 border-t border-calm-sand/60">
+                            <p class="text-xs font-bold text-calm-charcoal uppercase">Dora</p>
+                            <p class="text-xs text-calm-charcoal/50">03 Ιουλίου 2024</p>
+                        </div>
+                    </div>
+
+                    <div class="w-80 bg-calm-cream p-8 rounded-2xl shrink-0 border border-calm-sand">
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="flex items-center gap-1 text-calm-taupe">
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            </div>
+                            <span class="font-bold text-calm-charcoal text-sm">10.0 / 10</span>
+                        </div>
+                        <p class="text-calm-charcoal/80 text-sm font-light mb-6 italic min-h-[80px]">"Μου αρέσει που είναι μεθοδική αλλά συγχρόνως με κάνει να νιώθω άνετα και μου εμπνέει εμπιστοσύνη. Φοβερή!"</p>
+                        <div class="pt-4 border-t border-calm-sand/60">
+                            <p class="text-xs font-bold text-calm-charcoal uppercase">Νικολέττα</p>
+                            <p class="text-xs text-calm-charcoal/50">23 Νοεμβρίου 2023</p>
+                        </div>
+                    </div>
+                    
+                    <div class="w-80 bg-calm-cream p-8 rounded-2xl shrink-0 border border-calm-sand">
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="flex items-center gap-1 text-calm-taupe">
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            </div>
+                            <span class="font-bold text-calm-charcoal text-sm">10.0 / 10</span>
+                        </div>
+                        <p class="text-calm-charcoal/80 text-sm font-light mb-6 italic min-h-[80px]">"Όταν φεύγω από τις συνεδρίες αισθάνομαι ότι έχω πιο καθαρό μυαλό!! Εξαιρετική σύμβουλος!!!"</p>
+                        <div class="pt-4 border-t border-calm-sand/60">
+                            <p class="text-xs font-bold text-calm-charcoal uppercase">ΕΥΗ</p>
+                            <p class="text-xs text-calm-charcoal/50">21 Οκτωβρίου 2023</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="flex space-x-6 px-3" aria-hidden="true">
+                    
+                    <div class="w-80 bg-calm-cream p-8 rounded-2xl shrink-0 border border-calm-sand">
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="flex items-center gap-1 text-calm-taupe">
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            </div>
+                            <span class="font-bold text-calm-charcoal text-sm">10.0 / 10</span>
+                        </div>
+                        <p class="text-calm-charcoal/80 text-sm font-light mb-6 italic min-h-[80px]">"Σε αντιμετωπίζει σε σεβασμό εστιάζοντας στο πρόβλημα."</p>
+                        <div class="pt-4 border-t border-calm-sand/60">
+                            <p class="text-xs font-bold text-calm-charcoal uppercase">Georgia</p>
+                            <p class="text-xs text-calm-charcoal/50">14 Νοεμβρίου 2025</p>
+                        </div>
+                    </div>
+
+                    <div class="w-80 bg-calm-cream p-8 rounded-2xl shrink-0 border border-calm-sand">
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="flex items-center gap-1 text-calm-taupe">
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            </div>
+                            <span class="font-bold text-calm-charcoal text-sm">10.0 / 10</span>
+                        </div>
+                        <p class="text-calm-charcoal/80 text-sm font-light mb-6 italic min-h-[80px]">"Από την πρώτη στιγμή ένιωσα άνετα. Η ζεστασιά της με βοήθησε να νιώσω ότι κάποιος με ακούει πραγματικά."</p>
+                        <div class="pt-4 border-t border-calm-sand/60">
+                            <p class="text-xs font-bold text-calm-charcoal uppercase">Marita</p>
+                            <p class="text-xs text-calm-charcoal/50">24 Φεβρουαρίου 2025</p>
+                        </div>
+                    </div>
+
+                    <div class="w-80 bg-calm-cream p-8 rounded-2xl shrink-0 border border-calm-sand">
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="flex items-center gap-1 text-calm-taupe">
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            </div>
+                            <span class="font-bold text-calm-charcoal text-sm">10.0 / 10</span>
+                        </div>
+                        <p class="text-calm-charcoal/80 text-sm font-light mb-6 italic min-h-[80px]">"Εξαιρετική επαγγελματίας μα πάνω απ' όλα άνθρωπος! Άψογη αντιμετώπιση στη διαχείριση του άγχους!"</p>
+                        <div class="pt-4 border-t border-calm-sand/60">
+                            <p class="text-xs font-bold text-calm-charcoal uppercase">Dora</p>
+                            <p class="text-xs text-calm-charcoal/50">03 Ιουλίου 2024</p>
+                        </div>
+                    </div>
+
+                    <div class="w-80 bg-calm-cream p-8 rounded-2xl shrink-0 border border-calm-sand">
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="flex items-center gap-1 text-calm-taupe">
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            </div>
+                            <span class="font-bold text-calm-charcoal text-sm">10.0 / 10</span>
+                        </div>
+                        <p class="text-calm-charcoal/80 text-sm font-light mb-6 italic min-h-[80px]">"Μου αρέσει που είναι μεθοδική αλλά συγχρόνως με κάνει να νιώθω άνετα και μου εμπνέει εμπιστοσύνη. Φοβερή!"</p>
+                        <div class="pt-4 border-t border-calm-sand/60">
+                            <p class="text-xs font-bold text-calm-charcoal uppercase">Νικολέττα</p>
+                            <p class="text-xs text-calm-charcoal/50">23 Νοεμβρίου 2023</p>
+                        </div>
+                    </div>
+                    
+                    <div class="w-80 bg-calm-cream p-8 rounded-2xl shrink-0 border border-calm-sand">
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="flex items-center gap-1 text-calm-taupe">
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            </div>
+                            <span class="font-bold text-calm-charcoal text-sm">10.0 / 10</span>
+                        </div>
+                        <p class="text-calm-charcoal/80 text-sm font-light mb-6 italic min-h-[80px]">"Όταν φεύγω από τις συνεδρίες αισθάνομαι ότι έχω πιο καθαρό μυαλό!! Εξαιρετική σύμβουλος!!!"</p>
+                        <div class="pt-4 border-t border-calm-sand/60">
+                            <p class="text-xs font-bold text-calm-charcoal uppercase">ΕΥΗ</p>
+                            <p class="text-xs text-calm-charcoal/50">21 Οκτωβρίου 2023</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <a href="https://www.doctoranytime.gr/d/Psychologos/pampoukidou-olia" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 px-8 py-3 bg-white border border-calm-sand rounded-full text-sm font-bold text-calm-charcoal hover:bg-calm-cream transition-colors shadow-sm hover:shadow-md">
+                    Διαβάστε όλες τις αξιολογήσεις στο
+                    <img src="https://www.doctoranytime.gr/images/logo-rebranding.svg" class="h-4" alt="Doctoranytime">
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="bg-calm-charcoal text-white pt-24 pb-8 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-[40rem] h-[40rem] bg-calm-forest/30 rounded-full blur-[100px] transform translate-x-1/3 -translate-y-1/3"></div>
+        <div class="absolute bottom-0 left-0 w-[30rem] h-[30rem] bg-calm-taupe/10 rounded-full blur-[80px] transform -translate-x-1/3 translate-y-1/3"></div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
+                
+                <div class="lg:col-span-2 reveal">
+                    <h3 class="text-3xl font-serif mb-6 text-calm-sand">Ας κάνουμε το πρώτο βήμα.</h3>
+                    <p class="text-calm-sand/60 max-w-sm mb-10 font-light leading-relaxed">
+                        Η επούλωση ξεκινά με την απόφαση. Επικοινωνήστε για να ορίσουμε την πρώτη σας συνεδρία σε ένα περιβάλλον απόλυτης αποδοχής.
+                    </p>
+                    <a href="https://www.doctoranytime.gr/d/Psychologos/pampoukidou-olia" target="_blank" class="inline-flex items-center justify-center bg-calm-cream text-calm-charcoal px-8 py-4 rounded-full text-sm font-bold tracking-wider hover:bg-calm-taupe hover:text-white transition-colors duration-300">
+                        <img src="https://www.doctoranytime.gr/images/logo-rebranding.svg" alt="Doctoranytime" class="h-4 mr-3 opacity-80 filter brightness-0">
+                        Κλείστε Ραντεβού
+                    </a>
+                </div>
+
+                <div class="reveal" style="transition-delay: 100ms;">
+                    <h4 class="text-xs font-bold text-calm-taupe mb-6 uppercase tracking-widest">ΕΠΙΚΟΙΝΩΝΙΑ & ΧΩΡΟΣ</h4>
+                    <ul class="space-y-6 text-calm-sand/80 font-light text-sm">
+                        <li class="flex items-start gap-4">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-calm-sage shrink-0"></i>
+                            <span>Λεωφόρος Κηφισίας 69,<br>Πανόρμου, Αττική</span>
+                        </li>
+                        <li class="flex items-center gap-4">
+                            <i data-lucide="phone" class="w-5 h-5 text-calm-sage shrink-0"></i>
+                            <a href="tel:+306988000040" class="hover:text-white transition-colors tracking-wider">+30 698 800 0040</a>
+                        </li>
+                        <li class="flex items-center gap-4">
+                            <i data-lucide="mail" class="w-5 h-5 text-calm-sage shrink-0"></i>
+                            <a href="mailto:christinipalamidi@gmail.com" class="hover:text-white transition-colors">christinipalamidi@gmail.com</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="reveal" style="transition-delay: 200ms;">
+                    <h4 class="text-xs font-bold text-calm-taupe mb-6 uppercase tracking-widest">ΩΡΑΡΙΟ & SOCIAL</h4>
+                    <div class="mb-8">
+                        <p class="text-calm-sand/80 font-light text-sm flex items-center gap-3">
+                            <i data-lucide="clock" class="w-4 h-4 text-calm-sage"></i>
+                            Δευτέρα - Παρασκευή
+                        </p>
+                        <p class="text-calm-taupe text-xs font-bold mt-2 ml-7">ΚΑΤΟΠΙΝ ΡΑΝΤΕΒΟΥ</p>
+                    </div>
+
+                    <div class="flex gap-4">
+                        <a href="https://www.instagram.com/christini_palamidi/" target="_blank" class="w-10 h-10 rounded-full border border-calm-sand/20 flex items-center justify-center hover:bg-calm-sand/10 hover:border-calm-sand/50 transition-all text-calm-sand">
+                            <i data-lucide="instagram" class="w-4 h-4"></i>
+                        </a>
+                        <a href="https://www.facebook.com/Christini.psychotherapy/" target="_blank" class="w-10 h-10 rounded-full border border-calm-sand/20 flex items-center justify-center hover:bg-calm-sand/10 hover:border-calm-sand/50 transition-all text-calm-sand">
+                            <i data-lucide="facebook" class="w-4 h-4"></i>
+                        </a>
+                        <a href="https://www.tiktok.com/@therapy_for_every1" target="_blank" class="w-10 h-10 rounded-full border border-calm-sand/20 flex items-center justify-center hover:bg-calm-sand/10 hover:border-calm-sand/50 transition-all text-calm-sand">
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.12-3.44-3.17-3.61-5.46-.02-.43-.03-.86-.03-1.29.08-2.45 1.25-4.75 3.12-6.19 1.57-1.21 3.61-1.63 5.54-1.29l.06 4.29c-1.05-.18-2.15-.05-3.08.51-1.21.69-1.95 2.05-1.95 3.44.02 1.25.75 2.45 1.86 3.03 1.17.63 2.66.65 3.86.08 1.05-.49 1.8-1.55 1.94-2.7.04-.37.04-.75.04-1.12V.02h-3.32z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="border-t border-calm-sand/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 reveal">
+                <p class="text-calm-sand/40 text-xs font-light tracking-wide">© 2026 Χριστίνη Παλαμήδη. All rights reserved.</p>
+                <p class="text-calm-sand/40 text-xs font-light tracking-wide">
+                    Designed by <a href="https://advonmedia.com" target="_blank" rel="noopener" class="text-calm-taupe font-bold hover:text-white transition-colors">Advon Media</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Initialize Icons
+        lucide.createIcons();
+
+        // 2. Mobile Menu
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('flex');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('flex');
+            });
+        });
+
+        // 3. Navbar Scroll (Glass effect logic)
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('py-2');
+                navbar.classList.remove('py-4');
+                navbar.style.background = 'rgba(249, 248, 246, 0.95)';
+            } else {
+                navbar.classList.add('py-4');
+                navbar.classList.remove('py-2');
+                navbar.style.background = 'rgba(249, 248, 246, 0.85)';
+            }
+        });
+
+        // 4. Scroll Reveal (Intersection Observer)
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Start animation
+                    entry.target.style.animation = 'revealUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards';
+                    observer.unobserve(entry.target); 
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // 5. Lightbox Functionality
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        function openLightbox(imageSrc) {
+            lightboxImg.src = imageSrc;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            setTimeout(() => {
+                lightboxImg.src = '';
+                document.body.style.overflow = '';
+            }, 500);
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                closeLightbox();
+            }
+        });
+    </script>
+</body>
+</html>
